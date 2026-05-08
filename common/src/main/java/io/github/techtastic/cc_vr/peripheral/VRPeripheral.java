@@ -4,20 +4,17 @@ import dan200.computercraft.api.lua.IArguments;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import io.github.techtastic.cc_vr.CCVR;
 import io.github.techtastic.cc_vr.block.entity.VRPeripheralBlockEntity;
 import io.github.techtastic.cc_vr.util.LuaConversions;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.vivecraft.api.VRAPI;
 import org.vivecraft.api.data.VRBodyPart;
 import org.vivecraft.api.data.VRPose;
 import org.vivecraft.api.server.VRServerAPI;
 import org.vivecraft.server.ServerVRPlayers;
 import org.vivecraft.server.ServerVivePlayer;
-import org.vivecraft.server.api_impl.VRServerAPIImpl;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -33,9 +30,7 @@ public class VRPeripheral implements IPeripheral {
     private ServerVivePlayer getVRPlayer() throws LuaException {
         if (!(this.be.getBoundPlayer() instanceof Player player))
             throw new LuaException("No Bound Player!");
-        if (!ServerVRPlayers.isVRPlayer((ServerPlayer) player))
-            throw new LuaException("Bound Player is not in VR!");
-        if (!(ServerVRPlayers.getVivePlayer((ServerPlayer) this.be.getBoundPlayer()) instanceof ServerVivePlayer vr))
+        if (!ServerVRPlayers.isVRPlayer((ServerPlayer) player) || !(ServerVRPlayers.getVivePlayer((ServerPlayer) this.be.getBoundPlayer()) instanceof ServerVivePlayer vr))
             throw new LuaException("Bound Player is not in VR!");
         return vr;
     }
@@ -89,7 +84,9 @@ public class VRPeripheral implements IPeripheral {
 
     @LuaFunction
     public final String getFBTMode() throws LuaException {
-        return this.getVRPlayer().asVRPose().getFBTMode().name();
+        VRPose pose = this.getVRPlayer().asVRPose();
+        if (pose == null) return null;
+        return pose.getFBTMode().name();
     }
 
     @LuaFunction

@@ -3,16 +3,16 @@
   "id": "cc_vr",
   "version": "${version}",
   "name": "CC: VR",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "CC: Tweaked x Vivecraft Addon",
   "authors": [
-    "Me!"
+    "TechTastic"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/TechTastic/CC-VR",
+    "sources": "https://github.com/TechTastic/CC-VR"
   },
   "license": "MIT",
-  "icon": "assets/cc_vr/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

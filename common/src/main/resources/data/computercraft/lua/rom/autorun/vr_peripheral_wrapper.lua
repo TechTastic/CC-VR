@@ -162,6 +162,26 @@
 --     end
 -- end
 
+--- Events
+--
+-- @section events
+
+--- vr_bind
+-- @treturn {[string]="vr_bind", [string]=uuid}
+-- @usage
+-- while true do
+-- 	  local event, uuid = os.pullEvent("vr_bind")
+-- 	  print("Player with UUID " .. uuid .. " has been bound!")
+-- end
+
+--- vr_unbind
+-- @treturn {[string]="vr_unbind"}
+-- @usage
+-- while true do
+-- 	  local event= os.pullEvent("vr_unbind")
+-- 	  print("Player has been unbound!")
+-- end
+
 local native = peripheral.call
 
 peripheral.call = function(...)

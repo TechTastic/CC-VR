@@ -1,2 +1,2 @@
 # Changes
-- Added LDoc documentation wiki!
+- Updated CC: Advanced Math to 0.3.5

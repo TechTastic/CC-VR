@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>CC: VR</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>CC: VR</h1>
+
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>vr</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>vr</code></h1>
+<p>This peripheral is added by CC: VR and allows CC: Tweaked computers to access a bound player's VR controllers and headset via Vivecraft!</p>
+
+<p> This addon also includes [CC: Advanced Math][advanced-math] which provides the <code>quaternion</code> API used for the rotation in body part data.</p>
+<p>
+
+
+</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">-- assuming the peripheral block is to the left of the computer
+local vr = peripheral.wrap(&quot;left&quot;)
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#hasBoundPlayer">hasBoundPlayer ()</a></td>
+	<td class="summary">Determines whether a player has been bound ot the peripheral.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isInVR">isInVR ()</a></td>
+	<td class="summary">Determines whether the bound player is in VR mode.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isLeftHanded">isLeftHanded ()</a></td>
+	<td class="summary">Determines whether the bound player in VR has set themselves as left-handed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isSeated">isSeated ()</a></td>
+	<td class="summary">Determines whether the bound player in VR is seated.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isLeftHanded">isLeftHanded ()</a></td>
+	<td class="summary">Determines whether the bound player in VR is crawling.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getHeightScale">getHeightScale ()</a></td>
+	<td class="summary">Gets the height scale of the bound player in VR mode.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getWorldScale">getWorldScale ()</a></td>
+	<td class="summary">Gets the world scale of the bound player in VR mode.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getFBTMode">getFBTMode ()</a></td>
+	<td class="summary">Gets what Full Body Tracking mode the bound player is in.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#triggerHapticPulse">triggerHapticPulse (bodyPart, duration, frequency, amplitude, delay)</a></td>
+	<td class="summary">Triggers a haptic pulse for the bound player on the targeted body part</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getHead">getHead ()</a></td>
+	<td class="summary">Gets the positioning and orientation data of the headset.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getMainHand">getMainHand ()</a></td>
+	<td class="summary">Gets the positioning and orientation data of the main hand controller.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getOffhand">getOffhand ()</a></td>
+	<td class="summary">Gets the positioning and orientation data of the off-hand controller.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getBodyPartData">getBodyPartData (bodyPart)</a></td>
+	<td class="summary">Gets the positioning and orientation data of the body part.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "hasBoundPlayer"></a>
+    <strong>hasBoundPlayer ()</strong>
+    </dt>
+    <dd>
+    Determines whether a player has been bound ot the peripheral.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether a player has been bound
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Player is Bound!"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isInVR"></a>
+    <strong>isInVR ()</strong>
+    </dt>
+    <dd>
+    Determines whether the bound player is in VR mode.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the bound player is in VR mode
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Player is Bound and in VR!"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isLeftHanded"></a>
+    <strong>isLeftHanded ()</strong>
+    </dt>
+    <dd>
+    Determines whether the bound player in VR has set themselves as left-handed.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the bound player in VR is left-handed
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">and</span> vr.<span class="function-name">isLeftHanded</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Player is Bound, in VR, and left-handed!"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isSeated"></a>
+    <strong>isSeated ()</strong>
+    </dt>
+    <dd>
+    Determines whether the bound player in VR is seated.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the bound player in VR is seated
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">and</span> vr.<span class="function-name">isSeated</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Player is Bound, in VR, and seated!"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isLeftHanded"></a>
+    <strong>isLeftHanded ()</strong>
+    </dt>
+    <dd>
+    Determines whether the bound player in VR is crawling.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        whether the bound player in VR is crawling
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">and</span> vr.<span class="function-name">isCrawling</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Player is Bound, in VR, and crawling!"</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getHeightScale"></a>
+    <strong>getHeightScale ()</strong>
+    </dt>
+    <dd>
+    Gets the height scale of the bound player in VR mode.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        the height scale of the bound VR player
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Height Scale: "</span> .. <span class="global">tostring</span>(vr.<span class="function-name">getHeightScale</span>()))
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getWorldScale"></a>
+    <strong>getWorldScale ()</strong>
+    </dt>
+    <dd>
+    Gets the world scale of the bound player in VR mode.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        the world scale of the bound VR player
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"World Scale: "</span> .. <span class="global">tostring</span>(vr.<span class="function-name">getWorldScale</span>()))
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getFBTMode"></a>
+    <strong>getFBTMode ()</strong>
+    </dt>
+    <dd>
+    Gets what Full Body Tracking mode the bound player is in.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a> or <span class="type">nil</span></span>
+        the FBT mode enum value or nil if the pose is not loaded
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="global">print</span>(<span class="string">"Full Body Tracking: "</span> .. vr.<span class="function-name">getFBTMode</span>())
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "triggerHapticPulse"></a>
+    <strong>triggerHapticPulse (bodyPart, duration, frequency, amplitude, delay)</strong>
+    </dt>
+    <dd>
+    Triggers a haptic pulse for the bound player on the targeted body part
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bodyPart</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the body part enum value
+        </li>
+        <li><span class="parameter">duration</span>
+            <span class="types"><span class="type">number</span></span>
+         the duration of the pulse in seconds
+        </li>
+        <li><span class="parameter">frequency</span>
+            <span class="types"><span class="type">number[opt=160]</span></span>
+         the frequency of the pulse
+        </li>
+        <li><span class="parameter">amplitude</span>
+            <span class="types"><span class="type">number[opt=1]</span></span>
+         the amplitude of the pulse
+        </li>
+        <li><span class="parameter">delay</span>
+            <span class="types"><span class="type">number[opt=0]</span></span>
+         the delay of the pulse in seconds
+        </li>
+    </ul>
+
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the provided body part enum string is invalid.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    br.<span class="function-name">triggerHapticPulse</span>(<span class="string">"MAIN_HAND"</span>, <span class="number">1</span>)
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getHead"></a>
+    <strong>getHead ()</strong>
+    </dt>
+    <dd>
+    Gets the positioning and orientation data of the headset.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        the data of the headset (<code>pos</code>, <code>dir</code>, <code>rotation</code>, <code>pitch</code>, <code>roll</code>, and <code>yaw</code> in a table) or nil if the pose is not loaded
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="keyword">local</span> data = vr.<span class="function-name">getHead</span>()
+    <span class="keyword">if</span> data ~= <span class="keyword">nil</span> <span class="keyword">then</span>
+        <span class="global">print</span>(<span class="string">"Position: "</span> .. <span class="global">tostring</span>(data.pos)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Direction: "</span> .. <span class="global">tostring</span>(data.dir)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Rotation: "</span> .. <span class="global">tostring</span>(data.rotation)) <span class="comment">-- this is a CC: Advanced Math quaternion (1 + 0i + 0j + 0k)
+</span>        <span class="global">print</span>(<span class="string">"Pitch: "</span> .. <span class="global">tostring</span>(data.pitch))
+        <span class="global">print</span>(<span class="string">"Roll: "</span> .. <span class="global">tostring</span>(data.roll))
+        <span class="global">print</span>(<span class="string">"Yaw: "</span> .. <span class="global">tostring</span>(data.yaw))
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getMainHand"></a>
+    <strong>getMainHand ()</strong>
+    </dt>
+    <dd>
+    Gets the positioning and orientation data of the main hand controller.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        the data of the main hand controller (<code>pos</code>, <code>dir</code>, <code>rotation</code>, <code>pitch</code>, <code>roll</code>, and <code>yaw</code> in a table) or nil if the pose is not loaded
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="keyword">local</span> data = vr.<span class="function-name">getMainHand</span>()
+    <span class="keyword">if</span> data ~= <span class="keyword">nil</span> <span class="keyword">then</span>
+        <span class="global">print</span>(<span class="string">"Position: "</span> .. <span class="global">tostring</span>(data.pos)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Direction: "</span> .. <span class="global">tostring</span>(data.dir)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Rotation: "</span> .. <span class="global">tostring</span>(data.rotation)) <span class="comment">-- this is a CC: Advanced Math quaternion (1 + 0i + 0j + 0k)
+</span>        <span class="global">print</span>(<span class="string">"Pitch: "</span> .. <span class="global">tostring</span>(data.pitch))
+        <span class="global">print</span>(<span class="string">"Roll: "</span> .. <span class="global">tostring</span>(data.roll))
+        <span class="global">print</span>(<span class="string">"Yaw: "</span> .. <span class="global">tostring</span>(data.yaw))
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getOffhand"></a>
+    <strong>getOffhand ()</strong>
+    </dt>
+    <dd>
+    Gets the positioning and orientation data of the off-hand controller.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        the data of the off-hand controller (<code>pos</code>, <code>dir</code>, <code>rotation</code>, <code>pitch</code>, <code>roll</code>, and <code>yaw</code> in a table) or nil if the pose is not loaded
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player or if the bound player is not in VR mode.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="keyword">local</span> data = vr.<span class="function-name">getOffhand</span>()
+    <span class="keyword">if</span> data ~= <span class="keyword">nil</span> <span class="keyword">then</span>
+        <span class="global">print</span>(<span class="string">"Position: "</span> .. <span class="global">tostring</span>(data.pos)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Direction: "</span> .. <span class="global">tostring</span>(data.dir)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Rotation: "</span> .. <span class="global">tostring</span>(data.rotation)) <span class="comment">-- this is a CC: Advanced Math quaternion (1 + 0i + 0j + 0k)
+</span>        <span class="global">print</span>(<span class="string">"Pitch: "</span> .. <span class="global">tostring</span>(data.pitch))
+        <span class="global">print</span>(<span class="string">"Roll: "</span> .. <span class="global">tostring</span>(data.roll))
+        <span class="global">print</span>(<span class="string">"Yaw: "</span> .. <span class="global">tostring</span>(data.yaw))
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getBodyPartData"></a>
+    <strong>getBodyPartData (bodyPart)</strong>
+    </dt>
+    <dd>
+    Gets the positioning and orientation data of the body part.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">bodyPart</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         the body part enum value
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a> or <span class="type">nil</span></span>
+        the data of the body part (<code>pos</code>, <code>dir</code>, <code>rotation</code>, <code>pitch</code>, <code>roll</code>, and <code>yaw</code> in a table) or nil if the pose is not loaded
+    </ol>
+
+    <h3>Raises:</h3>
+    This method errors if there is no bound player, if the bound player is not in VR mode, or if the provided body part enum string is invalid.
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">if</span> vr.<span class="function-name">hasBoundPlayer</span>() <span class="keyword">and</span> vr.<span class="function-name">isInVR</span>() <span class="keyword">then</span>
+    <span class="keyword">local</span> data = vr.<span class="function-name">getBodyPartData</span>(<span class="string">"MAIN_HAND"</span>)
+    <span class="keyword">if</span> data ~= <span class="keyword">nil</span> <span class="keyword">then</span>
+        <span class="global">print</span>(<span class="string">"Position: "</span> .. <span class="global">tostring</span>(data.pos)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Direction: "</span> .. <span class="global">tostring</span>(data.dir)) <span class="comment">-- this is a CC: Tweaked vector (0,0,0)
+</span>        <span class="global">print</span>(<span class="string">"Rotation: "</span> .. <span class="global">tostring</span>(data.rotation)) <span class="comment">-- this is a CC: Advanced Math quaternion (1 + 0i + 0j + 0k)
+</span>        <span class="global">print</span>(<span class="string">"Pitch: "</span> .. <span class="global">tostring</span>(data.pitch))
+        <span class="global">print</span>(<span class="string">"Roll: "</span> .. <span class="global">tostring</span>(data.roll))
+        <span class="global">print</span>(<span class="string">"Yaw: "</span> .. <span class="global">tostring</span>(data.yaw))
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2026-05-08 08:05:34 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+<script src="/CC-VR/scripts/version.js"></script></body>
+</html>

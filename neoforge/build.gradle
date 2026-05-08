@@ -40,7 +40,6 @@ dependencies {
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 
-    modApi("curse.maven:mcvrapi-591092:$mcvrapi_version")
     modRuntimeOnly("curse.maven:vivecraft-667903:$vivecraft_version")
     compileOnly("cc.tweaked:cc-tweaked-$minecraft_version-core-api:$cc_tweaked_version")
     modCompileOnly("cc.tweaked:cc-tweaked-$minecraft_version-forge-api:$cc_tweaked_version")

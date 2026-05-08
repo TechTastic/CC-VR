@@ -31,10 +31,7 @@
     "java": ">=21",
     "architectury": ">=13.0.8",
     "fabric-api": "*",
-    "vrapi": ">=3.0.0",
+    "vivecraft": "*",
     "computercraft": ">=1.117.1"
-  },
-  "suggests": {
-    "vivecraft": "*"
   }
 }

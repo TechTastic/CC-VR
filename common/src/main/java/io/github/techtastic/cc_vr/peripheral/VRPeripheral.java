@@ -7,14 +7,21 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import io.github.techtastic.cc_vr.CCVR;
 import io.github.techtastic.cc_vr.block.entity.VRPeripheralBlockEntity;
 import io.github.techtastic.cc_vr.util.LuaConversions;
-import io.github.techtastic.platform.VRPlugin;
-import net.blf02.vrapi.api.data.IVRPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.vivecraft.api.VRAPI;
+import org.vivecraft.api.data.VRBodyPart;
+import org.vivecraft.api.data.VRPose;
+import org.vivecraft.api.server.VRServerAPI;
+import org.vivecraft.server.ServerVRPlayers;
+import org.vivecraft.server.ServerVivePlayer;
+import org.vivecraft.server.api_impl.VRServerAPIImpl;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class VRPeripheral implements IPeripheral {
     private final VRPeripheralBlockEntity be;
@@ -23,14 +30,12 @@ public class VRPeripheral implements IPeripheral {
         this.be = be;
     }
 
-    private IVRPlayer getVRPlayer() throws LuaException {
+    private ServerVivePlayer getVRPlayer() throws LuaException {
         if (!(this.be.getBoundPlayer() instanceof Player player))
             throw new LuaException("No Bound Player!");
-        if (!CCVR.HAS_VR_PLUGIN)
-            throw new LuaException("No VR API instance!");
-        if (!VRPlugin.getVRAPI().apiActive(player))
+        if (!ServerVRPlayers.isVRPlayer((ServerPlayer) player))
             throw new LuaException("Bound Player is not in VR!");
-        if (!(VRPlugin.getVRAPI().getVRPlayer(this.be.getBoundPlayer()) instanceof IVRPlayer vr))
+        if (!(ServerVRPlayers.getVivePlayer((ServerPlayer) this.be.getBoundPlayer()) instanceof ServerVivePlayer vr))
             throw new LuaException("Bound Player is not in VR!");
         return vr;
     }
@@ -54,69 +59,91 @@ public class VRPeripheral implements IPeripheral {
     public final boolean isInVR() throws LuaException {
         if (!this.hasBoundPlayer())
             throw new LuaException("No Bound Player!");
-        return VRPlugin.getVRAPI().playerInVR(this.be.getBoundPlayer());
+        return ServerVRPlayers.isVRPlayer((ServerPlayer) this.be.getBoundPlayer());
     }
 
     @LuaFunction
     public final boolean isLeftHanded() throws LuaException {
-        if (!this.hasBoundPlayer())
-            throw new LuaException("No Bound Player!");
-        return VRPlugin.getVRAPI().isLeftHanded(this.be.getBoundPlayer());
+        return this.getVRPlayer().isLeftHanded();
     }
 
     @LuaFunction
     public final boolean isSeated() throws LuaException {
-        if (!this.hasBoundPlayer())
-            throw new LuaException("No Bound Player!");
-        return VRPlugin.getVRAPI().isSeated(this.be.getBoundPlayer());
+        return this.getVRPlayer().isSeated();
+    }
+
+    @LuaFunction
+    public final boolean isCrawling() throws LuaException {
+        return this.getVRPlayer().crawling;
+    }
+
+    @LuaFunction
+    public final double getHeightScale() throws LuaException {
+        return this.getVRPlayer().heightScale;
+    }
+
+    @LuaFunction
+    public final double getWorldScale() throws LuaException {
+        return this.getVRPlayer().worldScale;
+    }
+
+    @LuaFunction
+    public final String getFBTMode() throws LuaException {
+        return this.getVRPlayer().asVRPose().getFBTMode().name();
     }
 
     @LuaFunction
     public final void triggerHapticPulse(IArguments args) throws LuaException {
         if (!this.hasBoundPlayer())
             throw new LuaException("No Bound Player!");
-        VRPlugin.getVRAPI().triggerHapticPulse(
-                args.getInt(0),
+        VRServerAPI.instance().sendHapticPulse(
+                (ServerPlayer) this.be.getBoundPlayer(),
+                parseBodyPart(args.getString(0)),
                 (float) args.getDouble(1),
                 (float) args.optDouble(2, 160),
                 (float) args.optDouble(3, 1),
-                (float) args.optDouble(4, 0),
-                (ServerPlayer) this.be.getBoundPlayer()
+                (float) args.optDouble(4, 0)
         );
     }
 
     @LuaFunction
-    public final Map<String, Object> getHMD() throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getHMD());
+    public final Map<String, Object> getHead() throws LuaException {
+        VRPose pose = this.getVRPlayer().asVRPose();
+        if (pose == null) return null;
+        return LuaConversions.toLua(pose.getHead());
     }
 
     @LuaFunction
-    public final Map<String, Object> getController0() throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getController0());
+    public final Map<String, Object> getMainHand() throws LuaException {
+        VRPose pose = this.getVRPlayer().asVRPose();
+        if (pose == null) return null;
+        return LuaConversions.toLua(pose.getMainHand());
     }
 
     @LuaFunction
-    public final Map<String, Object> getController1() throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getController1());
+    public final Map<String, Object> getOffhand() throws LuaException {
+        VRPose pose = this.getVRPlayer().asVRPose();
+        if (pose == null) return null;
+        return LuaConversions.toLua(pose.getOffHand());
     }
 
     @LuaFunction
-    public final Map<String, Object> getController(int controller) throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getController(controller));
+    public final Map<String, Object> getBodyPartData(String bodyPart) throws LuaException {
+        VRBodyPart part = parseBodyPart(bodyPart);
+        VRPose pose = this.getVRPlayer().asVRPose();
+        if (pose == null) return null;
+        try {
+            return LuaConversions.toLua(Objects.requireNonNull(pose.getBodyPartData(part)));
+        } catch (NullPointerException | MatchException ignored) {
+            throw new LuaException("Invalid body part due to FBT mode!");
+        }
     }
 
-    @LuaFunction
-    public final Map<String, Object> getLeftEye() throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getLeftEye());
-    }
-
-    @LuaFunction
-    public final Map<String, Object> getRightEye() throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getRightEye());
-    }
-
-    @LuaFunction
-    public final Map<String, Object> getEye(int eye) throws LuaException {
-        return LuaConversions.toLua(this.getVRPlayer().getEye(eye));
+    private VRBodyPart parseBodyPart(String part) throws LuaException {
+        try {
+            return VRBodyPart.valueOf(part);
+        } catch (IllegalArgumentException ignored) {
+            throw new LuaException("Invalid body part! Valid body parts include: [" + String.join(", ", (String[]) Arrays.stream(VRBodyPart.values()).filter(this.getVRPlayer().asVRPose().getFBTMode()::bodyPartAvailable).map(Enum::name).toArray()) + "]!");
+        }
     }
 }

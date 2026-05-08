@@ -35,13 +35,6 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.cc_vr]]
-modId = "vrapi"
-type = "required"
-versionRange = "[3.0.0,)"
-ordering = "AFTER"
-side = "BOTH"
-
-[[dependencies.cc_vr]]
 modId = "computercraft"
 type = "required"
 versionRange = "[1.117.1,)"
@@ -50,7 +43,7 @@ side = "BOTH"
 
 [[dependencies.cc_vr]]
 modId = "vivcraft"
-type = "optional"
+type = "required"
 versionRange = "[1.3.7,)"
 ordering = "AFTER"
 side = "BOTH"

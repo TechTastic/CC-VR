@@ -1,5 +1,7 @@
 plugins {
     id 'com.gradleup.shadow'
+    id "com.matthewprenger.cursegradle"
+    id "com.modrinth.minotaur"
 }
 
 architectury {
@@ -56,4 +58,49 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+}
+
+curseforge {
+    if (System.getenv("CURSEFORGE_TOKEN") != null) {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
+        project {
+            id = curseforge_id
+            releaseType = 'release'
+            changelogType = 'markdown'
+            changelog = rootProject.file("changelog.md").text
+            addGameVersion minecraft_version
+            addGameVersion "Fabric"
+
+            mainArtifact(remapJar.archiveFile.get().asFile) {
+                relations {
+                    requiredDependency 'architectury-api'
+                    requiredDependency 'cc-tweaked'
+                    requiredDependency 'vivecraft'
+                }
+                displayName = 'CC: VR ' + project.mod_version
+            }
+        }
+        options {
+            forgeGradleIntegration = false
+            javaVersionAutoDetect = false
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = project.modrinth_id
+    versionType = "release"
+    versionName = 'CC: VR ' + project.mod_version
+    versionNumber = project.mod_version
+    uploadFile = remapJar.archiveFile.get().asFile
+    gameVersions = [project.minecraft_version]
+    loaders = ["fabric"]
+    changelog = rootProject.file("changelog.md").text
+
+    dependencies {
+        required.project "architectury-api"
+        required.project "cc-tweaked"
+        required.project "vivecraft"
+    }
 }

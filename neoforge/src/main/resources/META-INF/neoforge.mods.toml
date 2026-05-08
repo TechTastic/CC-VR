@@ -42,7 +42,7 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.cc_vr]]
-modId = "vivcraft"
+modId = "vivecraft"
 type = "required"
 versionRange = "[1.3.7,)"
 ordering = "AFTER"

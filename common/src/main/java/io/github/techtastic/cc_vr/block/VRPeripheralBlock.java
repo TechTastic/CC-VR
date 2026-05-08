@@ -25,8 +25,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class VRPeripheralBlock extends Block implements EntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty EQUIPPED = BooleanProperty.create("equipped");
+    public static final DirectionProperty FACING;
+    public static final BooleanProperty EQUIPPED;
     public static final VoxelShape SHAPE;
 
     public VRPeripheralBlock(Properties properties) {
@@ -81,6 +81,8 @@ public class VRPeripheralBlock extends Block implements EntityBlock {
     }
 
     static {
+        FACING = BlockStateProperties.HORIZONTAL_FACING;
+        EQUIPPED = BooleanProperty.create("equipped");
         SHAPE = Shapes.or(Shapes.box(0, 0, 0, 1, 0.1, 1), Shapes.box(0.2, 0.1, 0.2, 0.8, 0.8, 0.8));
     }
 }

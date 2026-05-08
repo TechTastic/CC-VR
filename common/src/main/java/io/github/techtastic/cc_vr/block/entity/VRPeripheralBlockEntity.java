@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class VRPeripheralBlockEntity extends BlockEntity {
-    public static final String TAG_BOUND_PLAYER = "cc_vr$bound_player";
+    public static final String TAG_BOUND_PLAYER;
 
     public final AttachedComputerSet computers = new AttachedComputerSet();
     private UUID boundPlayer = null;
@@ -46,5 +46,9 @@ public class VRPeripheralBlockEntity extends BlockEntity {
         super.loadAdditional(compoundTag, provider);
         if (compoundTag.hasUUID(TAG_BOUND_PLAYER))
             this.boundPlayer = compoundTag.getUUID(TAG_BOUND_PLAYER);
+    }
+
+    static {
+        TAG_BOUND_PLAYER = "cc_vr$bound_player";
     }
 }

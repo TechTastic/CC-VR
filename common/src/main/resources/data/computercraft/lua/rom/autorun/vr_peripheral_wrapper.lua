@@ -1,8 +1,6 @@
 --- This peripheral is added by CC: VR and allows CC: Tweaked computers to access a bound player's VR controllers and headset via Vivecraft!
 --
--- This addon also includes [CC: Advanced Math][advanced-math] which provides the `quaternion` API used for the rotation in body part data.
---
--- [advanced-math]: https://techtastic.github.io/Advanced-Math/
+-- This addon also includes [CC: Advanced Math](https://techtastic.github.io/Advanced-Math/) which provides the `quaternion` API used for the rotation in body part data.
 --
 -- @module vr
 -- @usage
@@ -160,26 +158,6 @@
 --         print("Roll: " .. tostring(data.roll))
 --         print("Yaw: " .. tostring(data.yaw))
 --     end
--- end
-
---- Events
---
--- @section events
-
---- vr_bind
--- @treturn {[string]="vr_bind", [string]=uuid}
--- @usage
--- while true do
--- 	  local event, uuid = os.pullEvent("vr_bind")
--- 	  print("Player with UUID " .. uuid .. " has been bound!")
--- end
-
---- vr_unbind
--- @treturn {[string]="vr_unbind"}
--- @usage
--- while true do
--- 	  local event= os.pullEvent("vr_unbind")
--- 	  print("Player has been unbound!")
 -- end
 
 local native = peripheral.call

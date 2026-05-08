@@ -12,6 +12,7 @@ description = '''
 CC: Tweaked x Vivecraft Addon
 '''
 logoFile = "icon.png"
+displayUrl = "https://techtastic.github.io/CC-VR/"
 
 [[dependencies.cc_vr]]
 modId = "neoforge"

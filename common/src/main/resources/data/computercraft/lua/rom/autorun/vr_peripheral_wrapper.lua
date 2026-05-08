@@ -84,9 +84,9 @@
 -- @function triggerHapticPulse
 -- @tparam string bodyPart the body part enum value
 -- @tparam number duration the duration of the pulse in seconds
--- @tparam number[opt=160] frequency the frequency of the pulse
--- @tparam number[opt=1] amplitude the amplitude of the pulse
--- @tparam number[opt=0] delay the delay of the pulse in seconds
+-- @tparam[opt=160] number frequency the frequency of the pulse
+-- @tparam[opt=1] number amplitude the amplitude of the pulse
+-- @tparam[opt=0] number delay the delay of the pulse in seconds
 -- @raise This method errors if there is no bound player or if the provided body part enum string is invalid.
 -- @usage
 -- if vr.hasBoundPlayer() and vr.isInVR() then

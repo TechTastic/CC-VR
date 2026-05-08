@@ -6,12 +6,12 @@ peripheral.call = function(...)
 	local method = args[2]
 	if peripheral.hasType(name, "vr") then
 		if method == "getHead" or method == "getMainHand" or method == "getOffhand" or method == "getBodyPartData" then
-			local result, err = pcall(function() return native(table.unpack(args)) end)
-            if err then
-                error(err)
+			local status, result = pcall(function() return native(table.unpack(args)) end)
+            if not status then
+                error(result)
             end
 			if result == nil then
-				return result
+				return nil
 			end
 			result.pos = vector.new(result.pos.x, result.pos.y, result.pos.z)
 			result.dir = vector.new(result.dir.x, result.dir.y, result.dir.z)

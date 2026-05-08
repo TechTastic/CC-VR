@@ -11,7 +11,7 @@
     "homepage": "https://fabricmc.net/",
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/cc_vr/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -30,9 +30,11 @@
     "minecraft": "~1.21.1",
     "java": ">=21",
     "architectury": ">=13.0.8",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "vrapi": ">=3.0.0",
+    "computercraft": ">=1.117.1"
   },
   "suggests": {
-    "another-mod": "*"
+    "vivecraft": "*"
   }
 }

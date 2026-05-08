@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,equipped=false": { "model": "cc_vr:block/vr_stand" },
+    "facing=north,equipped=true": { "model": "cc_vr:block/stand" },
+    "facing=south,equipped=false": { "model": "cc_vr:block/vr_stand", "y": 180},
+    "facing=south,equipped=true": { "model": "cc_vr:block/stand", "y": 180 },
+    "facing=east,equipped=false": { "model": "cc_vr:block/vr_stand", "y": 90},
+    "facing=east,equipped=true": { "model": "cc_vr:block/stand", "y": 90 },
+    "facing=west,equipped=false": { "model": "cc_vr:block/vr_stand", "y": -90},
+    "facing=west,equipped=true": { "model": "cc_vr:block/stand", "y": -90 }
+  }
+}

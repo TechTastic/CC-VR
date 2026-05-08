@@ -9,7 +9,6 @@ import io.github.techtastic.cc_vr.block.entity.VRPeripheralBlockEntity;
 import io.github.techtastic.cc_vr.util.LuaConversions;
 import io.github.techtastic.platform.VRPlugin;
 import net.blf02.vrapi.api.data.IVRPlayer;
-import net.blf02.vrapi.data.VRPlayer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import org.jspecify.annotations.NonNull;

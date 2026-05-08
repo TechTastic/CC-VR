@@ -1,5 +1,6 @@
 package io.github.techtastic.cc_vr.block.entity;
 
+import dan200.computercraft.api.peripheral.AttachedComputerSet;
 import io.github.techtastic.cc_vr.registry.CCVRBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class VRPeripheralBlockEntity extends BlockEntity {
     public static final String TAG_BOUND_PLAYER = "cc_vr$bound_player";
 
+    public final AttachedComputerSet computers = new AttachedComputerSet();
     private UUID boundPlayer = null;
 
     public VRPeripheralBlockEntity(BlockPos blockPos, BlockState blockState) {

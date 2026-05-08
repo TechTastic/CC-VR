@@ -16,7 +16,8 @@ dependencies {
 }
 
 tasks.register('updateSubmodules', Exec) {
-    commandLine 'git', 'submodule', 'update', '--init', '--recursive', 'libs/advanced-math'
+    executable = 'git'
+    args = ['submodule', 'update', '--init', '--recursive', '--force', 'libs/advanced-math']
     workingDir rootProject.projectDir
 }
 
